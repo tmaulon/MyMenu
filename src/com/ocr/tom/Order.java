@@ -1,5 +1,6 @@
 package com.ocr.tom;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Order {
@@ -185,7 +186,7 @@ public class Order {
         for (int i = 1; i <= responses.length; i++)
             System.out.println(i + " - " + responses[i - 1]);
         System.out.println("Que souhaitez-vous comme " + category + "?");
-        int nbResponse;
+        int nbResponse = 0;
         boolean responseIsGood;
         do {
             try{
