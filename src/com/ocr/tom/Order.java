@@ -62,13 +62,24 @@ public class Order {
      */
     public void runMenus() {
         System.out.println("Combien souhaitez vous commander de menu ?");
-        int menuQuantity = sc.nextInt();
+        int menuQuantity = -1;
+        boolean responseIsGood;
+        do {
+            try {
+                menuQuantity = sc.nextInt();
+                responseIsGood = true;
+            } catch (InputMismatchException e) {
+                sc.next();
+                System.out.println("Vous devez saisir un nombre, correspondant au nombre de menus souhaités");
+                responseIsGood = false;
+            }
+        } while (!responseIsGood);
         orderSummary = "Résumé de votre commande :%n";
         for (int i = 0; i < menuQuantity; i++) {
-            orderSummary += "Menu " + (i + 1) + " : %n";
+            orderSummary += "Menu " + (i + 1) + ":%n";
             runMenu();
         }
-        System.out.println(" ... ");
+        System.out.println("...");
         System.out.println(String.format(orderSummary));
     }
 
@@ -177,8 +188,14 @@ public class Order {
         int nbResponse;
         boolean responseIsGood;
         do {
-            nbResponse = sc.nextInt();
-            responseIsGood = (nbResponse >= 1 && nbResponse <= responses.length);
+            try{
+                nbResponse = sc.nextInt();
+                responseIsGood = (nbResponse >= 1 && nbResponse <= responses.length);
+
+            } catch(InputMismatchException e) {
+                sc.next();
+                responseIsGood = false;
+            }
             if (responseIsGood) {
                 String choice = "Vous avez choisi comme " + category + " : " + responses[nbResponse - 1];
                 orderSummary += choice + "%n";
